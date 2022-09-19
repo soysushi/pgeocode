@@ -137,6 +137,7 @@ def _open_extract_url(url: str, country: str) -> Any:
 
     Returns the opened file object.
     """
+    ssl._create_default_https_context = ssl._create_unverified_context
     with urllib.request.urlopen(url) as res:
         with BytesIO(res.read()) as reader:
             if url.endswith(".zip"):
@@ -154,6 +155,7 @@ def _open_extract_cycle_url(urls: List[str], country: str) -> Any:
     We start by opening the first URL in the list, and if fails
     move to the next, until one works or the end of list is reached.
     """
+    ssl._create_default_https_context = ssl._create_unverified_context
     if not isinstance(urls, list) or not len(urls):
         raise ValueError(f"urls={urls} must be a list with at least one URL")
 
